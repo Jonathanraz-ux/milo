@@ -1,0 +1,483 @@
+/* ————— Écran de choix des défis ————— */
+/* Les classes .missions / .mission-carte de jeu.css sont réutilisées telles quelles. */
+
+/* ————— Écran « Machine Learning Lab (k-NN) » ————— */
+
+.entrainement {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+@media (min-width: 900px) and (orientation: landscape) {
+  .entrainement {
+    display: grid;
+    grid-template-columns: minmax(320px, 1fr) minmax(300px, 420px);
+    align-items: start;
+    gap: 24px;
+  }
+}
+
+.zone-titre {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--encre-douce);
+  text-transform: none;
+}
+
+.zone-titre__compteur {
+  margin-left: auto;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--fond-douce);
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--encre-douce);
+}
+
+/* ————— Étagère d’exemples ————— */
+
+.etagere {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fiche {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  min-height: var(--touche-min);
+  padding: 12px 10px;
+  border: 2px solid var(--mer-fonce);
+  border-radius: var(--rayon);
+  background: var(--blanc);
+  box-shadow: var(--ombre-douce);
+  color: var(--encre);
+  cursor: pointer;
+  transition:
+    transform var(--transition-douce),
+    box-shadow var(--transition-douce),
+    border-color var(--transition-douce),
+    background var(--transition-douce);
+}
+
+.fiche:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--ombre-forte);
+}
+
+.fiche:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.fiche--choisie {
+  border-color: var(--turquoise);
+  background: var(--turquoise-pale);
+  box-shadow: 0 0 0 3px rgba(23, 179, 166, 0.25);
+}
+
+.fiche__dessin {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 118px;
+  width: 100%;
+}
+
+.fiche__nom {
+  font-size: 15px;
+  font-weight: 800;
+  text-align: center;
+  line-height: 1.25;
+}
+
+.fiche__etat {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--turquoise-fonce);
+}
+
+.fiche__code {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--turquoise);
+}
+
+.fiche__mesures {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--encre-douce);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ————— Sélecteur de voisins k ————— */
+
+.selecteur-k {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.selecteur-k__label {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--encre-douce);
+  text-transform: uppercase;
+}
+
+.k-bouton {
+  min-width: var(--touche-min);
+  min-height: var(--touche-min);
+  padding: 6px 14px;
+  border: 2px solid var(--surface-bord);
+  border-radius: var(--rayon-petit);
+  background: var(--blanc);
+  color: var(--encre);
+  font-family: var(--mono);
+  font-size: 18px;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    border-color var(--transition-douce),
+    background var(--transition-douce),
+    color var(--transition-douce);
+}
+
+.k-bouton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.k-bouton--actif {
+  border-color: var(--turquoise);
+  background: var(--turquoise-pale);
+  color: var(--turquoise);
+  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.2);
+}
+
+.selecteur-k__conseil {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--jaune-pale);
+  border: 1px solid var(--jaune);
+  color: #ffe27a;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+/* ————— Nuage de points (amplitude × cohérence) ————— */
+
+.nuage {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.nuage__svg {
+  display: block;
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+}
+
+.nuage__seuil,
+.nuage__cible,
+.nuage__axe {
+  font-family: var(--mono);
+  font-weight: 700;
+}
+
+.nuage__seuil {
+  font-size: 9px;
+  fill: #ffd600;
+}
+
+.nuage__cible {
+  font-size: 9px;
+  font-weight: 800;
+  fill: #ffd600;
+  letter-spacing: 0.08em;
+}
+
+.nuage__axe {
+  font-size: 9px;
+  fill: var(--encre-douce);
+  letter-spacing: 0.08em;
+}
+
+.nuage__legende {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--encre-douce);
+}
+
+.nuage__legende-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.nuage__pastille {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.nuage__pastille--signal {
+  background: var(--turquoise);
+}
+
+.nuage__pastille--bruit {
+  background: var(--corail);
+}
+
+.nuage__pastille--cible {
+  background: var(--jaune);
+  border-radius: 2px;
+}
+
+.nuage__pastille--voisin {
+  background: transparent;
+  border: 2px solid var(--jaune);
+}
+
+/* ————— Voisins retenus par le vote ————— */
+
+.voisins {
+  padding: 12px 14px;
+  border-radius: var(--rayon);
+  background: var(--fond-douce);
+  border: 2px solid var(--surface-bord);
+}
+
+.voisins__titre {
+  margin: 0 0 8px;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--turquoise);
+  text-transform: uppercase;
+}
+
+.voisins__liste {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.voisins__item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  padding: 6px 10px;
+  border-radius: var(--rayon-petit);
+  background: var(--blanc);
+}
+
+.voisins__rang {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--bleu-pale);
+  color: var(--bleu);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.voisins__code {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--turquoise);
+}
+
+.voisins__nom {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.voisins__distance {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--encre-douce);
+  font-variant-numeric: tabular-nums;
+}
+
+.panier {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 800;
+  border: 2px solid transparent;
+}
+
+.panier--signal {
+  background: var(--turquoise-pale);
+  border-color: var(--turquoise);
+  color: var(--turquoise);
+}
+
+.panier--bruit {
+  background: var(--corail-pale);
+  border-color: var(--corail);
+  color: #ff8a8a;
+}
+
+.panier--inconnu {
+  background: var(--jaune-pale);
+  border-color: var(--jaune);
+  color: #7a5c00;
+}
+
+/* ————— Panneau de jeu ————— */
+
+.panneau-entrainement {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.exemples-monstres {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-height: 68px;
+  padding: 10px;
+  border-radius: var(--rayon);
+  background: var(--blanc);
+  border: 2px dashed var(--mer-fonce);
+}
+
+.exemples-monstres__vide {
+  color: var(--encre-douce);
+  font-weight: 700;
+  padding: 4px 8px;
+}
+
+.vignette {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--turquoise-pale);
+  border: 2px solid var(--turquoise);
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--turquoise-fonce);
+}
+
+.zone-test {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+  border-radius: var(--rayon);
+  background: var(--blanc);
+  border: 2px solid var(--jaune);
+  box-shadow: var(--ombre-douce);
+}
+
+.zone-test__entete {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.zone-test__fiche {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 14px;
+  min-height: 130px;
+  padding: 8px;
+  border-radius: var(--rayon-petit);
+  background: var(--fond-douce);
+}
+
+.zone-test__labels {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.milo-parle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: var(--rayon);
+  background: var(--bleu-pale);
+  border: 2px solid var(--bleu);
+  font-weight: 800;
+  color: var(--encre);
+}
+
+.milo-parle--concentre {
+  background: var(--fond-douce);
+  border-color: var(--sable-fonce);
+  color: var(--encre-douce);
+}
+
+.milo-parle__bulle {
+  flex: 1;
+}
+
+.fiche-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--encre-douce);
+}
+
+.entrainement .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}

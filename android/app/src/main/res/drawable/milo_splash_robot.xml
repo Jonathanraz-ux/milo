@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="160dp"
+    android:height="160dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Tête -->
+    <path
+        android:pathData="M32,35a18,18 0 1,0 36,0a18,18 0 1,0 -36,0"
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#24333F"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+
+    <!-- Corps -->
+    <path
+        android:pathData="M38,53L62,53A10,10 0 0,1 72,63A10,10 0 0,1 62,73L38,73A10,10 0 0,1 28,63A10,10 0 0,1 38,53Z"
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#24333F"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+
+    <!-- Œil gauche -->
+    <path
+        android:pathData="M41,32a2,2 0 1,0 4,0a2,2 0 1,0 -4,0"
+        android:fillColor="#24333F" />
+
+    <!-- Œil droit -->
+    <path
+        android:pathData="M55,32a2,2 0 1,0 4,0a2,2 0 1,0 -4,0"
+        android:fillColor="#24333F" />
+
+    <!-- Sourire -->
+    <path
+        android:pathData="M43,39Q50,44 57,39"
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#24333F"
+        android:strokeWidth="2"
+        android:strokeLineCap="round" />
+</vector>

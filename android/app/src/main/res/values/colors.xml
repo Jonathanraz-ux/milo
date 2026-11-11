@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Palette Milo, alignée sur src/styles/tokens.css -->
+    <color name="milo_fond">#FFF6EC</color>
+    <color name="milo_encre">#24333F</color>
+    <color name="milo_turquoise">#17B3A6</color>
+    <color name="milo_corail">#FF6B5E</color>
+
+    <!-- Couleurs attendues par le thème AppCompat généré par Capacitor -->
+    <color name="colorPrimary">#17B3A6</color>
+    <color name="colorPrimaryDark">#0E8C82</color>
+    <color name="colorAccent">#FFC93C</color>
+</resources>

@@ -1,0 +1,8 @@
+node_modules
+dist
+coverage
+*.local
+.DS_Store
+
+# Jeu de compétences externe : dépôt git distinct, 202 Mo, hors périmètre du projet
+ECC/
