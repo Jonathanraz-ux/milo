@@ -6,3 +6,6 @@ coverage
 
 # Jeu de compétences externe : dépôt git distinct, 202 Mo, hors périmètre du projet
 ECC/
+
+# APK de distribution (artefact généré, non versionné)
+apk/
