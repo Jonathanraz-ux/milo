@@ -229,11 +229,13 @@ Périmètre livré : réécriture complète du ton et des contenus pour un publi
 
 ### Commandes
 ```powershell
-npm run build
+npm run build:android        # vite build --mode capacitor : PWA désactivée
 npx cap copy android
 cd android
 .\gradlew.bat assembleRelease
 ```
+
+`npm run build` reste la cible web : elle génère le manifeste PWA, le service worker et le precache. La cible `capacitor` les omet volontairement — les assets sont déjà embarqués dans l'APK, et un service worker actif continuerait de servir l'ancienne version après une mise à jour de l'application.
 
 Sortie : `android/app/build/outputs/apk/release/app-release.apk`, copiée dans `apk/` avec son empreinte SHA-256.
 

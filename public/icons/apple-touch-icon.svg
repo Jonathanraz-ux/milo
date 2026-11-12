@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" role="img" aria-label="MILO Core">
+  <rect width="180" height="180" fill="#0B131E" />
+  <circle cx="90" cy="66" r="30" stroke="#00E5FF" stroke-width="5" fill="none" />
+  <rect x="54" y="100" width="72" height="32" rx="16" stroke="#00E5FF" stroke-width="5" fill="none" />
+  <circle cx="79" cy="61" r="3.5" fill="#00E5FF" />
+  <circle cx="101" cy="61" r="3.5" fill="#00E5FF" />
+  <path d="M79 73 Q90 82 101 73" stroke="#00E5FF" stroke-width="3.5" fill="none" stroke-linecap="round" />
+</svg>
