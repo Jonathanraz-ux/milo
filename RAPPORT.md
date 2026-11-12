@@ -215,3 +215,32 @@ Périmètre livré : réécriture complète du ton et des contenus pour un publi
 - Rejouer les parcours manuellement sur appareil réel après `npm run build` puis `npx cap copy android` (les assets WebView Android sont une copie de `dist`).
 - Vérifier le rendu sur les tailles d'écran extrêmes et avec un lecteur d'écran (les cibles tactiles, libellés ARIA et réductions d'animation sont en place).
 
+## Étape 6 — Distribution Android
+
+### Prérequis de chaîne de build
+- **JDK 21 obligatoire** (`JAVA_HOME` doit pointer dessus) : Capacitor 7 et AGP 8.13 compilent en `source release 21`. Le JDK 17 installé à côté provoque `error: invalid source release: 21`.
+- Android SDK avec `compileSdk 36`, build-tools 36.
+
+### Signature
+- Keystore PKCS12 `android/keystore/milo-release.jks`, alias `milo`, RSA 4096, validité 10 000 jours, sujet `CN=MILO Core, O=MILO, C=FR`.
+- Identifiants lus par `android/app/build.gradle` depuis `android/keystore.properties` (non versionné).
+- Repli automatique sur la clé de debug si le fichier est absent : un contributeur peut lancer `assembleRelease` sans secret, mais l'APK produit n'est alors pas distribuable.
+- **Le keystore et son mot de passe doivent être sauvegardés hors du dépôt** : sans eux, aucune mise à jour publiée n'est possible.
+
+### Commandes
+```powershell
+npm run build
+npx cap copy android
+cd android
+.\gradlew.bat assembleRelease
+```
+
+Sortie : `android/app/build/outputs/apk/release/app-release.apk`, copiée dans `apk/` avec son empreinte SHA-256.
+
+### Caractéristiques de l'APK de release
+- `com.milo.robot`, `versionName 1.0.0`, `versionCode 1`.
+- minSdk 24 (Android 7.0), targetSdk 36 (Android 16).
+- Label `MILO Core`, non débuggable, signé avec le certificat de release.
+- Le bundle WebView embarqué doit correspondre à `dist/assets` (`index-CqJnk5Hy.js`).
+
+

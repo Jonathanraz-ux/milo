@@ -9,3 +9,9 @@ ECC/
 
 # APK de distribution (artefact généré, non versionné)
 apk/
+
+# Signature de release : locale, ne doit jamais être versionnée
+android/keystore/
+android/keystore.properties
+*.jks
+*.keystore
